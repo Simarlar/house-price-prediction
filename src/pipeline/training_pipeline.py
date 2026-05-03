@@ -2,7 +2,8 @@ from src.components.data_ingestion import DataIngestion
 from src.entity.config_entity import DataIngestionConfig
 from src.components.data_validation import DataValidation
 from src.entity.config_entity import DataValidationConfig
-
+from src.components.data_transformation import DataTransformation
+from src.entity.config_entity import DataTransformationConfig
 if __name__ == "__main__":
     
     # Data Ingestion
@@ -23,3 +24,14 @@ if __name__ == "__main__":
     validation = DataValidation(config=data_validation_config)
     validation.validate_all_columns()
     
+    # Data Transformation
+    transformation_config = DataTransformationConfig(
+        preprocessor_obj_file_path="artifacts/preprocessor.pkl"
+    )
+    
+    transformation = DataTransformation(transformation_config)
+    train_arr , test_arr, _ = transformation.initiate_data_transformation(
+        train_path=train_path,
+        test_path=test_path
+    )
+    print(train_arr)
