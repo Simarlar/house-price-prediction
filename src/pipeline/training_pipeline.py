@@ -4,6 +4,8 @@ from src.components.data_validation import DataValidation
 from src.entity.config_entity import DataValidationConfig
 from src.components.data_transformation import DataTransformation
 from src.entity.config_entity import DataTransformationConfig
+from src.components.model_trainer import ModelTrainer
+from src.entity.config_entity import ModelTrainerConfig
 if __name__ == "__main__":
     
     # Data Ingestion
@@ -34,4 +36,13 @@ if __name__ == "__main__":
         train_path=train_path,
         test_path=test_path
     )
-    print(train_arr)
+    
+    # Model Trainer
+    
+    model_trainer_config = ModelTrainerConfig(trained_model_file_path="artifacts/model.pkl")
+    trainer = ModelTrainer(model_trainer_config)
+    model_report = trainer.initiate_model_trainer(
+        train_arr=train_arr,
+        test_arr=test_arr
+    )
+    print(model_report)
