@@ -6,6 +6,8 @@ from src.components.data_transformation import DataTransformation
 from src.entity.config_entity import DataTransformationConfig
 from src.components.model_trainer import ModelTrainer
 from src.entity.config_entity import ModelTrainerConfig
+from src.entity.config_entity import ModelEvaluationConfig
+from src.components.model_evaluation import ModelEvaluation
 if __name__ == "__main__":
     
     # Data Ingestion
@@ -45,4 +47,15 @@ if __name__ == "__main__":
         train_arr=train_arr,
         test_arr=test_arr
     )
-    print(model_report)
+    # Model Trainer
+    model_evaluation_config = ModelEvaluationConfig(
+        metric_file_path="artifacts/metric_file.json"
+    )
+    
+    model_evaluation = ModelEvaluation(model_evaluation_config)
+    metrics = model_evaluation.initiate_model_evaluation(
+        test_arr=test_arr,
+        model_path="artifacts/model.pkl"
+    )
+    print(metrics)
+    
