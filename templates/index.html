@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>House Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .note {
+            font-size: 12px;
+            color: gray;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🏠 House Price Prediction</h2>
+
+    <form action="/predict" method="post">
+
+        <label>Square Footage</label>
+        <input type="number" name="Square_Footage" placeholder="e.g. 2000" required>
+        <div class="note">Total living area in square feet</div>
+
+        <label>Number of Bedrooms</label>
+        <input type="number" name="Num_Bedrooms" placeholder="e.g. 3" required>
+
+        <label>Number of Bathrooms</label>
+        <input type="number" name="Num_Bathrooms" placeholder="e.g. 2" required>
+
+        <label>Year Built</label>
+        <input type="number" name="Year_Built" placeholder="e.g. 2010" required>
+
+        <label>Lot Size (in acres)</label>
+        <input type="number" step="0.01" name="Lot_Size" placeholder="e.g. 0.25" required>
+
+        <label>Garage Size (cars)</label>
+        <select name="Garage_Size" required>
+            <option value="">Select</option>
+            <option value="0">No Garage</option>
+            <option value="1">1 Car</option>
+            <option value="2">2 Cars</option>
+            <option value="3">3+ Cars</option>
+        </select>
+
+        <label>Neighborhood Quality</label>
+        <select name="Neighborhood_Quality" required>
+            <option value="">Select</option>
+            <option value="1">1 - Very Poor</option>
+            <option value="2">2 - Poor</option>
+            <option value="3">3 - Average</option>
+            <option value="4">4 - Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+
+        <button type="submit">Predict Price</button>
+    </form>
+{% if prediction_text %}
+<div style="margin-top:20px; text-align:center;">
+    <h3>💰 Predicted Price:</h3>
+    <h2 style="color:green;">{{ prediction_text }}</h2>
+</div>
+{% endif %}
+</div>
+
+</body>
+</html>
